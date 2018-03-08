@@ -1,0 +1,279 @@
+/**index.wxss**/
+page{
+  position: fixed;
+  width: 746rpx;
+  height: 100%;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.theContainer{
+  margin: 0rpx;
+  width:  100%;
+  height:  100%;
+  display: block;
+}
+.outer{
+  margin: 0rpx;
+  padding: 4rpx;
+  width:  100%;
+  height: 100%;
+  background-color: rgb(192, 192, 192);
+  display: block;
+}
+#mineField{
+  margin: 32rpx auto;
+  width: fit-content;
+  border: 6rpx solid;
+  border-left-color: rgb(128, 128, 128);
+  border-top-color: rgb(128, 128, 128);
+  border-bottom-color: white; 
+  border-right-color: white; 
+  display: block;
+}
+.tbody{
+  margin: 0rpx auto;
+  width: fit-content;
+}
+.tr{
+  margin-bottom: -1rpx;
+  width: fit-content;
+  height: 72rpx;
+  display: block;
+}
+.td{
+  position: relative;
+  width: 60rpx; height: 60rpx;
+  background-color: rgb(192, 192, 192); 
+  display: inline-block;
+  font-size: 44rpx;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+}
+.cleared{
+  border: 6rpx solid;
+  border-left-color: rgb(128, 128, 128);
+  border-top-color: rgb(128, 128, 128);
+  border-bottom-color: white;
+  border-right-color: white;
+}
+.untouched{
+  border: 6rpx solid;
+  border-left-color: white;
+  border-top-color: white;
+  border-right-color: rgb(128, 128, 128);
+  border-bottom-color: rgb(128, 128, 128);
+  cursor: pointer;
+}
+.buttons{
+  display: block;
+  margin: 36rpx auto 18rpx auto;
+  width: fit-content;
+}
+.btnOuter, .counterOuter{
+  display: inline-block; vertical-align: top;
+}
+.btnOuter{
+  margin-right: 40rpx;
+  border: 6rpx solid;
+  border-left-color: white;
+  border-top-color: white;
+  border-bottom-color: rgb(128, 128, 128);
+  border-right-color: rgb(128, 128, 128);
+}
+#noMineOuter{
+  margin: 0rpx 40rpx 0rpx 0rpx;
+  width: auto;
+}
+#noMine{
+  width: 232rpx;
+}
+#newMineOuter, #flagOuter{
+  width: fit-content;
+  height: auto;
+  vertical-align: top;
+}
+.counterOuter{
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  width: 64rpx;
+  height: 64rpx;
+  background-color: black;
+  color: red;
+  border: 8rpx solid rgb(90, 84, 84);
+}
+.counterInner{
+  padding-right: 12rpx;
+  text-align: right;
+  line-height: 64rpx;
+}
+#timerOuter{
+  width: 96rpx;
+}
+#newMine, #newFlag, .counterInner{
+  position: relative;
+  vertical-align: top;
+}
+#newFlag{
+  cursor: pointer;
+}
+.faceOuter{
+  position: absolute;
+  top: 3rpx;
+  left: 3rpx;
+  width: 54rpx;
+  height: 54rpx;
+  border-radius: 54rpx;
+  background-color: yellow;
+}
+ .eyeLeft{
+  position: absolute;
+  top: 16rpx;
+  left: 16rpx;
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 6rpx;
+  background-color: black;
+}
+.eyeRight{
+  position: absolute;
+  top: 16rpx;
+  right: 16rpx;
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 6rpx;
+  background-color: black;
+} 
+.eyeLeftBig, .eyeRightBig{
+  position: absolute;
+  top: 16rpx;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 6rpx; 
+  background-color: black;
+}
+.eyeLeftBig{
+  left: 8rpx;
+}
+.eyeRightBig{
+  right: 8rpx;
+}
+.eyeMiddle{
+  top: 20rpx;
+  left: 12rpx;
+  width: 30rpx;
+  height: 4rpx;
+  background-color: black;
+}
+.smileLips{
+  position: absolute;
+  top: 8rpx;
+  left: 8rpx;
+  width: 40rpx;
+  height: 36rpx;
+  border-bottom: 6rpx solid black;
+  border-bottom-left-radius: 36rpx;
+  border-bottom-right-radius: 36rpx;
+}
+.flag{
+  position: absolute;
+  top: 9rpx; left: 9rpx;
+  width: 0; 
+  height: 0; 
+  border-top: 10rpx solid transparent; 
+  border-right: 30rpx solid red; 
+  border-bottom: 15rpx solid transparent;
+}
+.pole{
+  position: absolute;
+  margin: 0rpx; padding: 0rpx;
+  border: none;
+  top: 7.5rpx; left: 36rpx;
+  width: 6rpx; height: 48rpx;
+  background-color: black;
+}
+.stand{
+  position: absolute;
+  margin: 0rpx; padding: 0rpx;
+  border: none;
+  top: 51rpx; left: 15rpx;
+  width: 39rpx; height: 6rpx;
+  background-color: black;
+}
+.mineNumber{
+  color: black;
+  width: 22rpx; height: 22rpx;
+  padding: 0rpx; margin: 0rpx;
+  text-align: center; line-height: 22rpx;
+  font-weight: bold; overflow: hidden;
+  display: block;
+}
+.innerColorMine{
+  color: black;
+}
+.innerColor0{
+  color: rgb(192, 192, 192);
+}
+.innerColor1{
+  color: blue;
+}
+.innerColor2{
+  color: green;
+}
+.innerColor3{
+  color: red;
+}
+.innerColor4{
+  color: darkblue;
+}
+.innerColor5{
+  color: darkred;
+}
+.innerColor6{
+  color: lightblue;
+}
+.innerColor7{
+  color: black;
+}
+.innerColor8{
+  color: rgb(128, 128, 128);
+}
+.flagOn{
+  display: block;
+}
+.flagOff{
+  display: none;
+}
+.crossOn{
+  position: absolute;
+  top: -42rpx;
+  left: -6rpx;
+  text-align: left;
+  vertical-align: top;
+  font-size: 100rpx;
+  color: red;
+  opacity: .7;
+}
+.crossOff{
+  display: none;
+}

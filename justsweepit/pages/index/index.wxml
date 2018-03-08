@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<div class="theContainer">
+  <div class="outer">
+    <div id="mineField">
+      <div class="tbody">
+        <div wx:for="{{mineList}}" wx:key="trs" class="tr">
+          <div wx:for="{{item}}" wx:key="tds" class="td {{item.className}} {{item.innerColor}}" data-row="{{item.row}}" data-col="{{item.col}}" bindtap="clearOrMark">
+            {{item.num}}
+            <div data-row="{{item.row}}" data-col="{{item.col}}" class="flag {{item.flagStatus}}"></div>
+            <div data-row="{{item.row}}" data-col="{{item.col}}" class="pole {{item.flagStatus}}"></div>
+            <div data-row="{{item.row}}" data-col="{{item.col}}" class="stand {{item.flagStatus}}"></div>
+            <div data-row="{{item.row}}" data-col="{{item.col}}" class="{{item.crossStatus}}">×</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <div class="btnOuter" id="noMineOuter">
+        <div id="noMine" class="td {{noMineBtn.className}}" data-name="noMine" bindtouchstart="toClear" bindtouchend="backToUntouched" bindtap="makeNoMineField">无雷纯享版</div>
+      </div>
+      <div class="btnOuter" id="newMineOuter">
+        <div id="newMine" class="td {{mineBtn.className}}" data-name="newMine" bindtouchstart="toClear" bindtouchend="backToUntouched" bindtap="onLoad">
+          <div data-name="newMine" class="faceOuter">
+            <div data-name="newMine" class="{{eyeLeft}}"></div>
+            <div data-name="newMine" class="{{eyeRight}}"></div>
+            <div data-name="newMine" class="{{eyeMiddle}}" style="position: absolute;"></div>
+            <div data-name="newMine" class="smileLips"></div>
+          </div>
+        </div>
+      </div>
+      <div class="btnOuter" id="flagOuter">
+        <div data-name="flag" id="newFlag" class="td {{flagBtn.className}}" data-id="newFlag" bindtouchstart="toClear" bindtap="tapFlag">
+          <div data-name="flag" class="flag"></div>
+          <div data-name="flag" class="pole"></div>
+          <div data-name="flag" class="stand"></div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <div class="text">
+      已用时
+      </div>
+      <div class="counterOuter" id="timerOuter">
+        <div id="timer" class="counterInner">
+          {{startTime}}
+        </div>
+      </div>
+      <div class="text">
+      地雷数
+      </div>
+      <div class="counterOuter">
+        <div id="counter" class="counterInner">
+          {{minesLeft}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
