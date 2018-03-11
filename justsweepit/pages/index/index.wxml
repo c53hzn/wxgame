@@ -38,15 +38,15 @@
     </div>
     <div class="buttons">
       <div class="text">
-      已用时
+      用时
       </div>
       <div class="counterOuter" id="timerOuter">
         <div id="timer" class="counterInner">
-          {{startTime}}
+          {{timeSpent}}
         </div>
       </div>
       <div class="text">
-      地雷数
+      地雷
       </div>
       <div class="counterOuter">
         <div id="counter" class="counterInner">

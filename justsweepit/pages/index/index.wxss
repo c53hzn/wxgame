@@ -93,7 +93,6 @@ page{
   display: inline-block; vertical-align: top;
 }
 .btnOuter{
-  margin-right: 40rpx;
   border: 6rpx solid;
   border-left-color: white;
   border-top-color: white;
@@ -111,6 +110,10 @@ page{
   width: fit-content;
   height: auto;
   vertical-align: top;
+}
+#newMineOuter{
+  margin-left: 60rpx;
+  margin-right: 80rpx;
 }
 .counterOuter{
   display: inline-block;
@@ -268,8 +271,6 @@ page{
   position: absolute;
   top: -42rpx;
   left: -6rpx;
-  text-align: left;
-  vertical-align: top;
   font-size: 100rpx;
   color: red;
   opacity: .7;

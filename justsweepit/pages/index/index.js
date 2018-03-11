@@ -19,8 +19,10 @@ Page({
     eyeLeft: "eyeLeft",
     eyeRight: "eyeRight",
     eyeMiddle: "",
-    startTime: 0,
-    endTime: 0
+    timeStart: 0,
+    timeSpent: 0,
+    blkCleared: 0,
+    timerStatus: null
   },
   //事件处理函数
   bindViewTap: function () {
@@ -38,6 +40,8 @@ Page({
     this.setData({ eyeMiddle: "" });
     this.setData({ minesLeft: 15 });
     this.setData({ flagBtn: {className: "untouched", status: "off" } });
+    this.setData({ timeStart: 0 });
+    this.setData({ timeSpent: 0 });
     console.log(this.data.mineList)
 
     function makeMineField() {
@@ -164,8 +168,20 @@ Page({
     var noMineGameStatus = that.data.noMineGame;
     var theMines = that.data.mineList;
     var flagStatus = that.data.flagBtn;
+    var blkCleared = that.data.blkCleared;
+    var timeStart = that.data.timeStart;
     var itemRow = e.target.dataset.row;
     var itemCol = e.target.dataset.col;
+    var theTimer = that.data.timerStatus;
+
+    if (timeStart == 0 && theTimer == null && mineGameStatus != "off"){
+      timeStart = new Date();
+      console.log("timeStart = ");
+      console.log(timeStart);
+      that.setData({timeStart: timeStart});
+      timer();
+    }
+    
     if(mineGameStatus == "on"){
       if (theMines[itemRow][itemCol].className == "untouched") {
         if (flagStatus.className == "cleared") {
@@ -185,6 +201,10 @@ Page({
           if (theMines[itemRow][itemCol].flagStatus == "flagOff"){
             //翻开
             if (theMines[itemRow][itemCol].mine) {//踩到地雷了
+            var theTimer = that.data.timerStatus;
+              console.log("timerStatus的遗言");
+              console.log(theTimer);
+              // clearTimeout(timerStatus);
               for (let i = 0; i < 12; i++) {
                 for (let j = 0; j < 9; j++) {
                   if (theMines[i][j].mine) {//翻开所有有雷的方块
@@ -204,6 +224,10 @@ Page({
                 }
               }
               that.setData({ mineGame: "off" });
+
+              that.setData({ timeStart: 0 });
+              // that.setData({ timeSpent: 0 }); 
+              that.setData({ timerStatus: null }); 
             } else {//没有雷
               theMines[itemRow][itemCol].className = "cleared";
               theMines[itemRow][itemCol].innerColor = "innerColor" + theMines[itemRow][itemCol].num;
@@ -230,6 +254,9 @@ Page({
                 that.setData({ eyeRight: "eyeRightBig" });
                 that.setData({ eyeMiddle: "eyeMiddle" });
                 that.setData({ minesLeft: 0 });
+                that.setData({ timeStart: 0 });
+                // that.setData({ timeSpent: 0 });
+                that.setData({ timerStatus: null });
               } 
             }
           }
@@ -237,10 +264,33 @@ Page({
       }//如果已翻开则不能恢复or翻开第二次
     }else if(noMineGameStatus == "on"){
       theMines[itemRow][itemCol].className = "cleared";
+      
     }
-    
+
+    function timer(){
+      var timerStatus = that.data.timerStatus;
+      var timeStart = that.data.timeStart;
+      var timeEnd = new Date();
+       
+      if(timeStart == 0 && timerStatus == null){
+        return;
+      }else{
+        var timeSpent = Math.floor((timeEnd - timeStart) / 1000);
+        console.log("timeSpent = ");
+        console.log(timeSpent);
+        that.setData({ timeSpent: timeSpent }); 
+        timerStatus = setTimeout(timer, 1000);
+      }
+    }
+
+    blkCleared = 0;
+    for(let i = 0; i < theMines.length; i++){
+      if (theMines[i].className == "cleared") {
+        blkCleared++;
+      }
+    }
+    that.setData({blkCleared: blkCleared});
     that.setData({mineList:theMines});
-    console.log("that.data.mineList[" + itemRow + "][" + itemCol + "] = ");
     console.log(that.data.mineList[itemRow][itemCol]);
   },
   toClear: function (e) {
@@ -266,14 +316,13 @@ Page({
   tapFlag: function(e){
     var that = this;
     console.log(this.data.flagBtn);
-    if(that.data.noMineGame != "on"){
-      // console.log(that.data.flagBtn.status);
-      if (that.data.flagBtn.status == "off") {
-        that.setData({ flagBtn: { className: "cleared", status: "on" } });
-        console.log('case1');
-      } else {
-        that.setData({ flagBtn: { className: "untouched", status: "off" } });
-        console.log('case2');
+    if (that.data.noMineGame != "on"){
+      if (that.data.blkCleared != 0){
+        if (that.data.flagBtn.status == "off") {
+          that.setData({ flagBtn: { className: "cleared", status: "on" } });
+        } else {
+          that.setData({ flagBtn: { className: "untouched", status: "off" } });
+        }
       }
     }
   },
@@ -297,5 +346,8 @@ Page({
     that.setData({ eyeLeft: "eyeLeft" });
     that.setData({ eyeRight: "eyeRight" });
     that.setData({ eyeMiddle: "" });
+    that.setData({ timerStatus: null });
+    that.setData({ timeStart: 0 });
+    that.setData({ timeSpent: 0 });
   }
 })
