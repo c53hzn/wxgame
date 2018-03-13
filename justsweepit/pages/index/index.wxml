@@ -38,6 +38,21 @@
     </div>
     <div class="buttons">
       <div class="text">
+        设置
+      </div>
+      <div class="gearOuter" bindtap="setting" data-name="setting">
+        <div class="outerCircle" data-name="setting"></div>
+        <div class="tooth1" data-name="setting">
+        </div>
+        <div class="tooth2" data-name="setting">
+        </div>
+        <div class="tooth3" data-name="setting">
+        </div>
+        <div class="tooth4" data-name="setting">
+        </div>
+        <div class="innerCircle" data-name="setting"></div>
+      </div>
+      <div class="text">
       用时
       </div>
       <div class="counterOuter" id="timerOuter">
@@ -54,5 +69,6 @@
         </div>
       </div>
     </div>
+    <div class="{{popUp}}"></div>
   </div>
 </div>

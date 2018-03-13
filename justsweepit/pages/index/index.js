@@ -22,7 +22,8 @@ Page({
     timeStart: 0,
     timeSpent: 0,
     blkCleared: 0,
-    timerStatus: null
+    timerStatus: null,
+    popUp: "popUp"
   },
   //事件处理函数
   bindViewTap: function () {
@@ -42,6 +43,7 @@ Page({
     this.setData({ flagBtn: {className: "untouched", status: "off" } });
     this.setData({ timeStart: 0 });
     this.setData({ timeSpent: 0 });
+    this.setData({ blkCleared: 0 });
     console.log(this.data.mineList)
 
     function makeMineField() {
@@ -168,13 +170,12 @@ Page({
     var noMineGameStatus = that.data.noMineGame;
     var theMines = that.data.mineList;
     var flagStatus = that.data.flagBtn;
-    var blkCleared = that.data.blkCleared;
     var timeStart = that.data.timeStart;
     var itemRow = e.target.dataset.row;
     var itemCol = e.target.dataset.col;
     var theTimer = that.data.timerStatus;
 
-    if (timeStart == 0 && theTimer == null && mineGameStatus != "off"){
+    if (timeStart == 0 && theTimer == null && (mineGameStatus != "off" || noMineGameStatus != "off")){
       timeStart = new Date();
       console.log("timeStart = ");
       console.log(timeStart);
@@ -201,10 +202,6 @@ Page({
           if (theMines[itemRow][itemCol].flagStatus == "flagOff"){
             //翻开
             if (theMines[itemRow][itemCol].mine) {//踩到地雷了
-            var theTimer = that.data.timerStatus;
-              console.log("timerStatus的遗言");
-              console.log(theTimer);
-              // clearTimeout(timerStatus);
               for (let i = 0; i < 12; i++) {
                 for (let j = 0; j < 9; j++) {
                   if (theMines[i][j].mine) {//翻开所有有雷的方块
@@ -224,10 +221,8 @@ Page({
                 }
               }
               that.setData({ mineGame: "off" });
-
-              that.setData({ timeStart: 0 });
-              // that.setData({ timeSpent: 0 }); 
-              that.setData({ timerStatus: null }); 
+              that.setData({ blkCleared: 0 });
+              stopTimer();
             } else {//没有雷
               theMines[itemRow][itemCol].className = "cleared";
               theMines[itemRow][itemCol].innerColor = "innerColor" + theMines[itemRow][itemCol].num;
@@ -254,15 +249,13 @@ Page({
                 that.setData({ eyeRight: "eyeRightBig" });
                 that.setData({ eyeMiddle: "eyeMiddle" });
                 that.setData({ minesLeft: 0 });
-                that.setData({ timeStart: 0 });
-                // that.setData({ timeSpent: 0 });
-                that.setData({ timerStatus: null });
+                stopTimer();
               } 
             }
           }
         }
       }//如果已翻开则不能恢复or翻开第二次
-    }else if(noMineGameStatus == "on"){
+    }else if(noMineGameStatus == "on"){//无雷模式
       theMines[itemRow][itemCol].className = "cleared";
       
     }
@@ -282,14 +275,30 @@ Page({
         timerStatus = setTimeout(timer, 1000);
       }
     }
+    function stopTimer(){
+      that.setData({ timeStart: 0 });
+      that.setData({ timerStatus: null });
+      that.setData({ blkCleared: 0 });
+    }
 
-    blkCleared = 0;
+    var blkCleared = 0;
     for(let i = 0; i < theMines.length; i++){
-      if (theMines[i].className == "cleared") {
-        blkCleared++;
+      for(let j = 0; j < theMines[i].length; j++){
+        if (theMines[i][j].className == "cleared") {
+          blkCleared++;
+        }
       }
     }
-    that.setData({blkCleared: blkCleared});
+    if(that.data.mineGame == "on" || that.data.noMineGame == "on"){
+      if (blkCleared == 108){
+        that.setData({ noMineGame: "off" });
+        stopTimer();
+      }else{
+        console.log("blkCleared = ");
+        console.log(blkCleared);
+        that.setData({ blkCleared: blkCleared });
+      }
+    }
     that.setData({mineList:theMines});
     console.log(that.data.mineList[itemRow][itemCol]);
   },
@@ -300,7 +309,7 @@ Page({
     } else if (e.target.dataset.name == "newMine"){
       that.setData({mineBtn:{className:"cleared"}});
     }else{
-      if(that.data.flagBtn.status == "off"){
+      if (that.data.flagBtn.status == "off" && that.data.blkCleared != 0){
         that.setData({ flagBtn: { className: "cleared", status: "off" } });
       }
     }
@@ -349,5 +358,14 @@ Page({
     that.setData({ timerStatus: null });
     that.setData({ timeStart: 0 });
     that.setData({ timeSpent: 0 });
+  },
+  setting: function(e){
+    var that = this;
+    var popUpClass = that.data.popUp;
+    if(popUpClass == "popUp"){
+      that.setData({popUp: "popUpHide"});
+    }else{
+      that.setData({popUp: "popUp"});
+    }
   }
 })

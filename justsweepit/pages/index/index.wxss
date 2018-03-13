@@ -132,6 +132,7 @@ page{
 }
 #timerOuter{
   width: 96rpx;
+  margin-right: 20rpx;
 }
 #newMine, #newFlag, .counterInner{
   position: relative;
@@ -276,5 +277,82 @@ page{
   opacity: .7;
 }
 .crossOff{
+  display: none;
+}
+.gearOuter{
+  position: relative;
+  width: 84rpx;
+  height: 84rpx;
+  margin-right: 20rpx;
+  display: inline-block;
+  vertical-align: top;
+}
+.outerCircle{
+  position: absolute;
+  top: 10rpx;
+  left: 10rpx;
+  height: 64rpx;
+  width: 64rpx;
+  border-radius: 32rpx;
+  background: rgb(90, 84, 84);
+}
+.innerCircle{
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  height: 36rpx;
+  width: 36rpx;
+  border-radius: 18rpx;
+  background: rgb(192, 192, 192);
+}
+.tooth1{
+  position: absolute;
+  top: 0rpx;
+  left: 32rpx;
+  width: 20rpx;
+  height: 84rpx;
+  border-radius: 2rpx;
+  background: rgb(90, 84, 84);
+}
+.tooth2{
+  position: absolute;
+  top: 32rpx;
+  left: 0rpx;
+  width: 84rpx;
+  height: 20rpx;
+  border-radius: 2rpx;
+  background: rgb(90, 84, 84);
+}
+.tooth3{
+  position: absolute;
+  transform:rotate(45deg);
+  top: 32rpx;
+  left: 0rpx;
+  width: 84rpx;
+  height: 20rpx;
+  border-radius: 2rpx;
+  background: rgb(90, 84, 84);
+}
+.tooth4{
+  position: absolute;
+  transform:rotate(-45deg);
+  top: 32rpx;
+  left: 0rpx;
+  width: 84rpx;
+  height: 20rpx;
+  border-radius: 2rpx;
+  background: rgb(90, 84, 84);
+}
+.popUp{
+  position: fixed;
+  top: 150rpx;
+  left: 100rpx;
+  width: 560rpx;
+  height: 660rpx;
+  background: rgb(90, 84, 84);
+  display: block;
+  opacity: .95;
+}
+.popUpHide{
   display: none;
 }
