@@ -23,7 +23,10 @@ Page({
     timeSpent: 0,
     blkCleared: 0,
     timerStatus: null,
-    popUp: "popUp"
+    popUp: "",
+    settingItem:{indicatorDots:true,autoplay:false},
+    mineBest5: [999, 999, 999, 999, 999],
+    noMineBest5: [999, 999, 999, 999, 999]
   },
   //事件处理函数
   bindViewTap: function () {
@@ -32,6 +35,11 @@ Page({
     })
   },
   onLoad: function (e) {
+    if (!wx.getStorageSync("settingStatusNextTime")) {
+      this.setData({ popUp: "pop-up" });
+    } else {
+      this.setData({ popUp: "pop-up_hide" });
+    }
     var theMines = makeMineField();//function都在下面
     this.setData({mineList:theMines});
     this.setData({mineGame: "on"});
@@ -44,7 +52,21 @@ Page({
     this.setData({ timeStart: 0 });
     this.setData({ timeSpent: 0 });
     this.setData({ blkCleared: 0 });
-    console.log(this.data.mineList)
+    if (!wx.getStorageSync("mineBest5")) {
+      let mineBest5 = this.data.mineBest5;
+      this.setData({ mineBest5: mineBest5 });
+    } else {
+      let mineBest5 = wx.getStorageSync("mineBest5");
+      this.setData({ mineBest5: mineBest5 });
+    }
+    if (!wx.getStorageSync("noMineBest5")) {
+      let noMineBest5 = this.data.noMineBest5;
+      this.setData({ noMineBest5: noMineBest5 });
+    } else {
+      let noMineBest5 = wx.getStorageSync("noMineBest5");
+      this.setData({ noMineBest5: noMineBest5 });
+    }
+
 
     function makeMineField() {
       //生成指定范围，指定数量的随机数
@@ -250,6 +272,15 @@ Page({
                 that.setData({ eyeMiddle: "eyeMiddle" });
                 that.setData({ minesLeft: 0 });
                 stopTimer();
+                let mineBest5 = that.data.mineBest5;
+                mineBest5.push(that.data.timeSpent);
+                function sortNumber(a, b) {
+                  return a - b
+                }
+                mineBest5.sort(sortNumber);
+                mineBest5.pop();
+                that.setData({mineBest5: mineBest5});
+                wx.setStorageSync("mineBest5",mineBest5);
               } 
             }
           }
@@ -269,10 +300,12 @@ Page({
         return;
       }else{
         var timeSpent = Math.floor((timeEnd - timeStart) / 1000);
-        console.log("timeSpent = ");
-        console.log(timeSpent);
-        that.setData({ timeSpent: timeSpent }); 
-        timerStatus = setTimeout(timer, 1000);
+        if(timeSpent == 999){
+          stopTimer();
+        }else{
+          that.setData({ timeSpent: timeSpent });
+          timerStatus = setTimeout(timer, 1000);
+        }
       }
     }
     function stopTimer(){
@@ -293,6 +326,15 @@ Page({
       if (blkCleared == 108){
         that.setData({ noMineGame: "off" });
         stopTimer();
+        let noMineBest5 = that.data.noMineBest5;
+        noMineBest5.push(that.data.timeSpent);
+        function sortNumber(a, b) {
+          return a - b
+        }
+        noMineBest5.sort(sortNumber);
+        noMineBest5.pop();
+        that.setData({ noMineBest5: noMineBest5 });
+        wx.setStorageSync("noMineBest5", noMineBest5);
       }else{
         console.log("blkCleared = ");
         console.log(blkCleared);
@@ -362,10 +404,15 @@ Page({
   setting: function(e){
     var that = this;
     var popUpClass = that.data.popUp;
-    if(popUpClass == "popUp"){
-      that.setData({popUp: "popUpHide"});
+    if(popUpClass == "pop-up"){
+      that.setData({popUp: "pop-up_hide"});
+      try {
+        wx.setStorageSync('settingStatusNextTime', 'pop-up_hide')
+      } catch (event) {
+        console.log(event);
+      }
     }else{
-      that.setData({popUp: "popUp"});
+      that.setData({popUp: "pop-up"});
     }
-  }
+  },
 })

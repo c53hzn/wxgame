@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="buttons">
-      <div class="text">
+      <div>
         设置
       </div>
       <div class="gearOuter" bindtap="setting" data-name="setting">
@@ -52,16 +52,16 @@
         </div>
         <div class="innerCircle" data-name="setting"></div>
       </div>
-      <div class="text">
-      用时
+      <div>
+        用时
       </div>
       <div class="counterOuter" id="timerOuter">
         <div id="timer" class="counterInner">
           {{timeSpent}}
         </div>
       </div>
-      <div class="text">
-      地雷
+      <div>
+        地雷
       </div>
       <div class="counterOuter">
         <div id="counter" class="counterInner">
@@ -69,6 +69,74 @@
         </div>
       </div>
     </div>
-    <div class="{{popUp}}"></div>
+    <div class="{{popUp}}">
+      <swiper indicator-dots="{{settingItem.indicatorDots}}" autoplay="{{settingItem.autoplay}}" class="setting-item">
+        <!--swiper-item只能包含一个节点再多会自动删除-->
+        <swiper-item>
+          <div>
+            <div class="legend-item">
+              <div class="btnOuter" id="noMineOuter" style="margin-right: 0rpx;">
+                <div id="noMine" class="td untouched">无雷纯享版
+                </div>
+              </div>
+              <div class="text">无雷版</div>
+            </div>
+            <div class="legend-item">
+              <div class="btnOuter" id="newMineOuter" style="margin-left: 0rpx; margin-right: 20rpx;">
+                <div id="newMine" class="td untouched">
+                  <div class="faceOuter" >
+                    <div class="eyeLeft"></div>
+                    <div class="eyeRight"></div>
+                    <div class="smileLips"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="text">有雷版</div>
+            </div>
+            <div class="legend-item">
+              <div class="btnOuter" id="flagOuter" style="margin-right: 20rpx;">
+                <div data-name="flag" id="newFlag" class="td untouched">
+                  <div class="flag"></div>
+                  <div class="pole"></div>
+                  <div class="stand"></div>
+                </div>
+              </div>
+              <div class="text">标记/消除标记</div>
+            </div>
+            <div class="legend-item">
+              <div class="gearOuter">
+                <div class="outerCircle"></div>
+                <div class="tooth1">
+                </div>
+                <div class="tooth2">
+                </div>
+                <div class="tooth3">
+                </div>
+                <div class="tooth4">
+                </div>
+                <div class="innerCircle"></div>
+              </div>
+              <div class="text">显示/隐藏本页</div>
+            </div>
+          </div>
+        </swiper-item>
+        <swiper-item>
+          <div class="setting-item">
+            <div class="score-item">有雷版最好成绩</div>
+            <div wx:for="{{mineBest5}}" wx:key="mineBest5" wx:for-index="index" class="score-item">
+              {{index+1}}. {{item}}秒
+            </div>
+          </div>
+        </swiper-item>
+        <swiper-item>
+          <div class="setting-item">
+            <div class="score-item">无雷版最好成绩</div>
+            <div wx:for="{{noMineBest5}}" wx:key="noMineBest5" wx:for-index="index" class="score-item">
+              {{index+1}}. {{item}}秒
+            </div>
+          </div>
+        </swiper-item>
+      </swiper>
+    </div>
   </div>
 </div>

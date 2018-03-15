@@ -343,16 +343,38 @@ page{
   border-radius: 2rpx;
   background: rgb(90, 84, 84);
 }
-.popUp{
+.pop-up{
   position: fixed;
-  top: 150rpx;
+  top: 120rpx;
   left: 100rpx;
   width: 560rpx;
-  height: 660rpx;
+  height: 720rpx;
   background: rgb(90, 84, 84);
-  display: block;
   opacity: .95;
 }
-.popUpHide{
+.pop-up_hide{
   display: none;
+}
+.setting-item{
+  position: absolute;
+  top: 60rpx;
+  left: 50rpx;
+  width: 460rpx;
+  height: 600rpx;
+  background: rgb(192, 192, 192);
+  display: block;
+}
+.legend-item{
+  margin: 48rpx auto auto 48rpx; 
+  display: block;
+}
+.text{
+  text-align: right;
+  margin-top: 14rpx;
+  display: inline-block;
+}
+.score-item{
+  margin: -10rpx auto 32rpx -102rpx;
+  text-align: center;
+  display: block;
 }
