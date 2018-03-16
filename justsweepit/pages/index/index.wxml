@@ -126,6 +126,9 @@
             <div wx:for="{{mineBest5}}" wx:key="mineBest5" wx:for-index="index" class="score-item">
               {{index+1}}. {{item}}秒
             </div>
+            <div class="btnOuter" id="noMineOuter" style="margin-left: 125rpx;">
+              <div id="noMine" class="td {{mineBestClearBtn.className}}" data-name="mineBestClearBtn" bindtouchstart="toClear" bindtouchend="backToUntouched" bindtap="mineBestClear" style="width: 100rpx;">重置</div>
+            </div>
           </div>
         </swiper-item>
         <swiper-item>
@@ -133,6 +136,9 @@
             <div class="score-item">无雷版最好成绩</div>
             <div wx:for="{{noMineBest5}}" wx:key="noMineBest5" wx:for-index="index" class="score-item">
               {{index+1}}. {{item}}秒
+            </div>
+            <div class="btnOuter" id="noMineOuter" style="margin-left: 125rpx;">
+              <div id="noMine" class="td {{noMineBestClearBtn.className}}" data-name="noMineBestClearBtn" bindtouchstart="toClear" bindtouchend="backToUntouched" bindtap="noMineBestClear" style="width: 100rpx;">重置</div>
             </div>
           </div>
         </swiper-item>

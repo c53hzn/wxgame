@@ -374,7 +374,7 @@ page{
   display: inline-block;
 }
 .score-item{
-  margin: -10rpx auto 32rpx -102rpx;
+  margin: -18rpx auto 30rpx -102rpx;
   text-align: center;
   display: block;
 }

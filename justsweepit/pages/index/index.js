@@ -26,7 +26,9 @@ Page({
     popUp: "",
     settingItem:{indicatorDots:true,autoplay:false},
     mineBest5: [999, 999, 999, 999, 999],
-    noMineBest5: [999, 999, 999, 999, 999]
+    noMineBest5: [999, 999, 999, 999, 999],
+    mineBestClearBtn:{className: "untouched"},
+    noMineBestClearBtn:{className: "untouched"}
   },
   //事件处理函数
   bindViewTap: function () {
@@ -243,7 +245,6 @@ Page({
                 }
               }
               that.setData({ mineGame: "off" });
-              that.setData({ blkCleared: 0 });
               stopTimer();
             } else {//没有雷
               theMines[itemRow][itemCol].className = "cleared";
@@ -301,7 +302,8 @@ Page({
       }else{
         var timeSpent = Math.floor((timeEnd - timeStart) / 1000);
         if(timeSpent == 999){
-          stopTimer();
+          that.setData({ timeSpent: timeSpent });
+          return;
         }else{
           that.setData({ timeSpent: timeSpent });
           timerStatus = setTimeout(timer, 1000);
@@ -350,7 +352,11 @@ Page({
       that.setData({noMineBtn:{className:"cleared"}});
     } else if (e.target.dataset.name == "newMine"){
       that.setData({mineBtn:{className:"cleared"}});
-    }else{
+    } else if (e.target.dataset.name == "mineBestClearBtn") {
+      that.setData({ mineBestClearBtn: { className: "cleared" } });
+    } else if (e.target.dataset.name == "noMineBestClearBtn") {
+      that.setData({ noMineBestClearBtn: { className: "cleared" } });
+    } else{
       if (that.data.flagBtn.status == "off" && that.data.blkCleared != 0){
         that.setData({ flagBtn: { className: "cleared", status: "off" } });
       }
@@ -362,6 +368,10 @@ Page({
       that.setData({ noMineBtn: { className: "untouched" } });
     } else if (e.target.dataset.name == "newMine") {
       that.setData({ mineBtn: { className: "untouched" } });
+    } else if (e.target.dataset.name == "mineBestClearBtn") {
+      that.setData({ mineBestClearBtn: { className: "untouched" } });
+    } else if (e.target.dataset.name == "noMineBestClearBtn") {
+      that.setData({ noMineBestClearBtn: { className: "untouched" } });
     }
   },
   tapFlag: function(e){
@@ -415,4 +425,12 @@ Page({
       that.setData({popUp: "pop-up"});
     }
   },
+  mineBestClear: function(e){
+    wx.removeStorageSync('mineBest5');
+    this.setData({ mineBest5: [999,999,999,999,999]});
+  },
+  noMineBestClear: function (e) {
+    wx.removeStorageSync('noMineBest5');
+    this.setData({ noMineBest5: [999, 999, 999, 999, 999] });
+  }
 })
