@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="{{popUp}}">
-      <swiper indicator-dots="{{settingItem.indicatorDots}}" autoplay="{{settingItem.autoplay}}" class="setting-item">
+      <swiper indicator-dots="{{settingItem.indicatorDots}}" autoplay="{{settingItem.autoplay}}" class="setting-item" current="{{currentItem}}">
         <!--swiper-item只能包含一个节点再多会自动删除-->
         <swiper-item>
           <div>

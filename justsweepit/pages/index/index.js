@@ -25,6 +25,7 @@ Page({
     timerStatus: null,
     popUp: "",
     settingItem:{indicatorDots:true,autoplay:false},
+    currentItem:0,
     mineBest5: [999, 999, 999, 999, 999],
     noMineBest5: [999, 999, 999, 999, 999],
     mineBestClearBtn:{className: "untouched"},
@@ -300,9 +301,9 @@ Page({
       if(timeStart == 0 && timerStatus == null){
         return;
       }else{
-        var timeSpent = Math.floor((timeEnd - timeStart) / 1000);
-        if(timeSpent == 999){
-          that.setData({ timeSpent: timeSpent });
+        var timeSpent = Math.floor((timeEnd - timeStart) / 1000) ;
+        console.log(timeSpent);
+        if(timeSpent > 999){
           return;
         }else{
           that.setData({ timeSpent: timeSpent });
@@ -417,11 +418,13 @@ Page({
     if(popUpClass == "pop-up"){
       that.setData({popUp: "pop-up_hide"});
       try {
-        wx.setStorageSync('settingStatusNextTime', 'pop-up_hide')
+        wx.setStorageSync('settingStatusNextTime', 'pop-up_hide');
+        that.setData({ currentItem: 0 });
       } catch (event) {
         console.log(event);
       }
     }else{
+      that.setData({ currentItem: 0 });
       that.setData({popUp: "pop-up"});
     }
   },
